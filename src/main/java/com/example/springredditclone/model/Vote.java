@@ -1,7 +1,5 @@
 package com.example.springredditclone.model;
 
-import java.time.Instant;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
