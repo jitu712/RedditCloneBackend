@@ -39,4 +39,5 @@ public class SubRedditController {
     public ResponseEntity<SubRedditDto> getSubreddit(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(subRedditService.getSubreddit(id));
     }
+
 }
