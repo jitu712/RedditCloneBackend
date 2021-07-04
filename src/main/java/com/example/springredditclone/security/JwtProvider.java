@@ -8,7 +8,7 @@ import java.security.PublicKey;
 
 import javax.annotation.PostConstruct;
 
-import com.example.springredditclone.service.SpringRedditException;
+import com.example.springredditclone.exceptions.SpringRedditException;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;

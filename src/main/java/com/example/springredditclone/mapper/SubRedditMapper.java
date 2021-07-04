@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.example.springredditclone.dto.SubRedditDto;
 import com.example.springredditclone.model.Post;
-import com.example.springredditclone.model.SubReddit;
+import com.example.springredditclone.model.Subreddit;
 
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -14,7 +14,7 @@ import org.mapstruct.Mapping;
 public interface SubRedditMapper {
 
     @Mapping(target = "numberOfPosts", expression = "java(mapPosts(subReddit.getPosts()))")
-    SubRedditDto mapSubRedditToDto(SubReddit subReddit);
+    SubRedditDto mapSubRedditToDto(Subreddit subReddit);
 
     default Integer mapPosts(List<Post> numberOfPosts) {
         return numberOfPosts.size();
@@ -22,5 +22,5 @@ public interface SubRedditMapper {
 
     @InheritInverseConfiguration
     @Mapping(target = "posts", ignore = true)
-    SubReddit mapDtoToSubReddit(SubRedditDto subRedditDto);
+    Subreddit mapDtoToSubReddit(SubRedditDto subRedditDto);
 }

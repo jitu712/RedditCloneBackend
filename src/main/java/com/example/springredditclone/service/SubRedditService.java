@@ -4,8 +4,9 @@ import static java.util.stream.Collectors.toList;
 
 import java.util.List;
 import com.example.springredditclone.dto.SubRedditDto;
+import com.example.springredditclone.exceptions.SpringRedditException;
 import com.example.springredditclone.mapper.SubRedditMapper;
-import com.example.springredditclone.model.SubReddit;
+import com.example.springredditclone.model.Subreddit;
 import com.example.springredditclone.repository.SubredditRepository;
 
 import org.springframework.stereotype.Service;
@@ -22,8 +23,8 @@ public class SubRedditService {
     private final SubRedditMapper subRedditMapper;
 
     public SubRedditDto save(SubRedditDto subRedditDto) {
-        SubReddit subReddit = subRedditMapper.mapDtoToSubReddit(subRedditDto);
-        SubReddit save = subredditRepository.save(subReddit);
+        Subreddit subReddit = subRedditMapper.mapDtoToSubReddit(subRedditDto);
+        Subreddit save = subredditRepository.save(subReddit);
         subRedditDto.setId(save.getId());
         return subRedditDto;
     }
@@ -44,7 +45,7 @@ public class SubRedditService {
     // }
 
     public SubRedditDto getSubreddit(Long id) {
-        SubReddit subReddit = subredditRepository.findById(id)
+        Subreddit subReddit = subredditRepository.findById(id)
                 .orElseThrow(() -> new SpringRedditException("No subreddit found with id " + id));
         return subRedditMapper.mapSubRedditToDto(subReddit);
     }
