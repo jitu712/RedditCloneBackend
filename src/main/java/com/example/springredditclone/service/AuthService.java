@@ -49,7 +49,7 @@ public class AuthService {
 
         String token = generateVerificationToken(user);
         mailService.sendEmail(new NotificationEmail("SpringRedditClone Signup", user.getEmail(),
-                "Thank you for singing up. Please click on below link to activate account: http://localhost:8080/api/auth/accountverification/"
+                "Thank you for singing up. Please click on below link to activate account: http://localhost:8080/api/auth/accountVerification/"
                         + token));
     }
 
@@ -79,9 +79,9 @@ public class AuthService {
 
     @Transactional
     private void fetchUserAndEnable(VerificationToken verificationToken) {
-        String userName = verificationToken.getUser().getUsername();
-        User user = userRepository.findByUsername(userName)
-                .orElseThrow(() -> new SpringRedditException("User not found with name " + userName));
+        String username = verificationToken.getUser().getUsername();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new SpringRedditException("User not found with name " + username));
         user.setEnabled(true);
         userRepository.save(user);
     }
