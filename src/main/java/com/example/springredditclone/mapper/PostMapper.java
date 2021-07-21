@@ -13,10 +13,10 @@ import org.mapstruct.Mapping;
 public interface PostMapper {
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "description", source = "postRequest.description")
-    Post map(PostRequest postRequest, Subreddit subReddit, User user);
+    Post map(PostRequest postRequest, Subreddit subreddit, User user);
 
     @Mapping(target = "id", source = "postId")
-    @Mapping(target = "subredditName", source = "subReddit.name")
+    @Mapping(target = "subredditName", source = "subreddit.name")
     @Mapping(target = "username", source = "user.username")
     PostResponse mapToDto(Post post);
 }
