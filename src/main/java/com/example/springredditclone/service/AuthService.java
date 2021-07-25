@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import com.example.springredditclone.dto.AuthenticationResponse;
 import com.example.springredditclone.dto.LoginRequest;
+import com.example.springredditclone.dto.RefreshTokenRequest;
 import com.example.springredditclone.dto.RegisterRequest;
 import com.example.springredditclone.exceptions.SpringRedditException;
 import com.example.springredditclone.model.NotificationEmail;
@@ -35,6 +36,7 @@ public class AuthService {
     private final MailService mailService;
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
+    private final RefreshTokenService refreshTokenService;
 
     @Transactional
     public void signup(RegisterRequest registerRequest) {
@@ -91,6 +93,19 @@ public class AuthService {
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtProvider.generateToken(authentication);
-        return new AuthenticationResponse(loginRequest.getUsername(), token);
+        Instant expiresAt = Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis());
+        String refreshToken = refreshTokenService.generateRefreshToken().getToken();
+        // return new AuthenticationResponse(loginRequest.getUsername(), token,
+        // refreshToken, expiresAt);
+        return AuthenticationResponse.builder().authenticationToken(token).username(loginRequest.getUsername())
+                .refreshToken(refreshToken).expiresAt(expiresAt).build();
+    }
+
+    public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
+        refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
+        String token = jwtProvider.generateTokenWithUsername(refreshTokenRequest.getUsername());
+        Instant expiresAt = Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis());
+        return AuthenticationResponse.builder().authenticationToken(token).username(refreshTokenRequest.getUsername())
+                .refreshToken(token).expiresAt(expiresAt).build();
     }
 }
