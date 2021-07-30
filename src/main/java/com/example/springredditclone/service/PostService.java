@@ -66,4 +66,8 @@ public class PostService {
         return postRepository.findByUser(user).stream().map(postMapper::mapToDto).collect(Collectors.toList());
     }
 
+    public void deletePost(Long long1) {
+        postRepository.deleteById(long1);
+    }
+
 }
