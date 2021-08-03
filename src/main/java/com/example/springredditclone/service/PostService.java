@@ -38,7 +38,9 @@ public class PostService {
     public void save(PostRequest postRequest) {
         Subreddit subreddit = subredditRepository.findByName(postRequest.getSubredditName())
                 .orElseThrow(() -> new SpringRedditException("Subreddit not found" + postRequest.getSubredditName()));
-        postRepository.save(postMapper.map(postRequest, subreddit, authService.getCurrentUser()));
+        User currentUser = authService.getCurrentUser();
+        Post post = postMapper.map(postRequest, subreddit, currentUser);
+        postRepository.save(post);
     }
 
     @Transactional(readOnly = true)
