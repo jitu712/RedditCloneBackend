@@ -72,4 +72,12 @@ public class PostService {
         postRepository.deleteById(long1);
     }
 
+    @Transactional(readOnly = true)
+    public List<PostResponse> getPostsBySubredditName(String name) {
+        Subreddit subreddit = subredditRepository.findByName(name)
+                .orElseThrow(() -> new SubredditNotFoundException(name.toString()));
+        List<Post> posts = postRepository.findAllBySubreddit(subreddit);
+        return posts.stream().map(postMapper::mapToDto).collect(Collectors.toList());
+    }
+
 }
