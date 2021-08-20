@@ -2,11 +2,11 @@ package com.example.springredditclone.repository;
 
 import java.util.Optional;
 
-import com.example.springredditclone.model.User;
+import com.example.springredditclone.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<Users, Long> {
 
-    Optional<User> findByUsername(String username);
+    Optional<Users> findByUsername(String username);
 
 }

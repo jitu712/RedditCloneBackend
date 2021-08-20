@@ -4,7 +4,7 @@ import com.example.springredditclone.dto.PostRequest;
 import com.example.springredditclone.dto.PostResponse;
 import com.example.springredditclone.model.Post;
 import com.example.springredditclone.model.Subreddit;
-import com.example.springredditclone.model.User;
+import com.example.springredditclone.model.Users;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -16,7 +16,7 @@ public interface PostMapper {
     @Mapping(target = "subreddit", source = "subreddit")
     @Mapping(target = "voteCount", constant = "0")
     @Mapping(target = "user", source = "user")
-    Post map(PostRequest postRequest, Subreddit subreddit, User user);
+    Post map(PostRequest postRequest, Subreddit subreddit, Users user);
 
     @Mapping(target = "id", source = "postId")
     @Mapping(target = "subredditName", source = "subreddit.name")

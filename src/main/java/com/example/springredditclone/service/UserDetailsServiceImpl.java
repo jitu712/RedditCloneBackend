@@ -3,7 +3,7 @@ package com.example.springredditclone.service;
 import java.util.Collection;
 import java.util.Optional;
 
-import com.example.springredditclone.model.User;
+import com.example.springredditclone.model.Users;
 import com.example.springredditclone.repository.UserRepository;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -29,8 +29,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> userOptional = userRepository.findByUsername(username);
-        User user = userOptional.orElseThrow(() -> new UsernameNotFoundException("No user found " + username));
+        Optional<Users> userOptional = userRepository.findByUsername(username);
+        Users user = userOptional.orElseThrow(() -> new UsernameNotFoundException("No user found " + username));
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
                 user.getEnabled(), true, true, true, getAuthorities("User"));
     }

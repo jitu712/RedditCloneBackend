@@ -33,5 +33,5 @@ public class Subreddit {
     private List<Post> posts;
     private Instant createdDate;
     @ManyToOne
-    private User user;
+    private Users user;
 }
