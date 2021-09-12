@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 // @Data
 // @AllArgsConstructor
 // @NoArgsConstructor
-@Builder
+// @Builder
 public class AuthenticationResponse {
     public String getUsername() {
         return username;
@@ -45,6 +45,14 @@ public class AuthenticationResponse {
     }
 
     private String username;
+
+    public AuthenticationResponse(String username, String authenticationToken, String refreshToken, Instant expiresAt) {
+        this.username = username;
+        this.authenticationToken = authenticationToken;
+        this.refreshToken = refreshToken;
+        this.expiresAt = expiresAt;
+    }
+
     private String authenticationToken;
     private String refreshToken;
     private Instant expiresAt;
