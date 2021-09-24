@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/auth")
-// @Slf4j
+@Slf4j
 @AllArgsConstructor
 public class AuthController {
 
@@ -32,27 +32,27 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody RegisterRequest registerRequest) {
-        // log.error("signup called");
+        log.error("signup called");
         authService.signup(registerRequest);
         return new ResponseEntity<>("Registered", HttpStatus.OK);
     }
 
     @GetMapping("/accountVerification/{token}")
     public ResponseEntity<String> verifyToken(@PathVariable String token) {
-        // log.error("verify token", token);
+        log.error("verify token", token);
         authService.verifyToken(token);
         return new ResponseEntity<>("Account verified", HttpStatus.OK);
     }
 
     @PostMapping("/login")
     public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) {
-        // log.error("login called");
+        log.error("login called");
         return authService.login(loginRequest);
     }
 
     @PostMapping("/refresh/token")
     public AuthenticationResponse refreshToken(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) {
-        // log.error("refresh called");
+        log.error("refresh called");
         return authService.refreshToken(refreshTokenRequest);
     }
 

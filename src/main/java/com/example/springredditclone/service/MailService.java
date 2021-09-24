@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @AllArgsConstructor
-// @Slf4j
+@Slf4j
 public class MailService {
 
     private final JavaMailSender javaMailSender;
@@ -31,7 +31,7 @@ public class MailService {
 
         try {
             javaMailSender.send(mimeMessagePreparator);
-            // log.info("activation mail sent");
+            log.info("activation mail sent");
         } catch (Exception e) {
             throw new SpringRedditException(
                     "error occured while sending activatin email to" + notificationEmail.getRecipient());
