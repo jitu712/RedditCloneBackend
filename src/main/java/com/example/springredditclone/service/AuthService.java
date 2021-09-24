@@ -99,14 +99,15 @@ public class AuthService {
         String refreshToken = refreshTokenService.generateRefreshToken().getToken();
         // return new AuthenticationResponse(loginRequest.getUsername(), token,
         // refreshToken, expiresAt);
-        return new AuthenticationResponse(loginRequest.getUsername(), token, refreshToken, expiresAt);
+        return AuthenticationResponse.builder().authenticationToken(token).username(loginRequest.getUsername())
+                .refreshToken(refreshToken).expiresAt(expiresAt).build();
     }
 
     public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
         refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
         String token = jwtProvider.generateTokenWithUsername(refreshTokenRequest.getUsername());
         Instant expiresAt = Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis());
-        return new AuthenticationResponse(refreshTokenRequest.getUsername(), token, token, expiresAt);
-
+        return AuthenticationResponse.builder().authenticationToken(token).username(refreshTokenRequest.getUsername())
+                .refreshToken(token).expiresAt(expiresAt).build();
     }
 }

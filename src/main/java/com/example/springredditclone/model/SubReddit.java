@@ -16,30 +16,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// @Data
+@Data
 @Entity
-// @AllArgsConstructor
-// @NoArgsConstructor
-// @Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Subreddit {
-    public Long getId() {
-        return id;
-    }
-
-    public Instant getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Instant createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    // @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank(message = "Community name is required")
     private String name;
