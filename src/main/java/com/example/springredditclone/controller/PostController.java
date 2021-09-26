@@ -1,5 +1,7 @@
 package com.example.springredditclone.controller;
 
+import static org.springframework.http.ResponseEntity.status;
+
 import java.util.List;
 
 import com.example.springredditclone.dto.PostRequest;
@@ -16,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.http.ResponseEntity.status;
-
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -27,9 +27,9 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping
-    public ResponseEntity<Void> createPost(@RequestBody PostRequest postRequest) {
-        postService.save(postRequest);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<PostResponse> createPost(@RequestBody PostRequest postRequest) {
+        PostResponse postResponse = postService.save(postRequest);
+        return status(HttpStatus.CREATED).body(postResponse);
     }
 
     @GetMapping

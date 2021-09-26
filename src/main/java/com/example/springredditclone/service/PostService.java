@@ -35,12 +35,14 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
-    public void save(PostRequest postRequest) {
+    public PostResponse save(PostRequest postRequest) {
         Subreddit subreddit = subredditRepository.findByName(postRequest.getSubredditName())
                 .orElseThrow(() -> new SpringRedditException("Subreddit not found" + postRequest.getSubredditName()));
         Users currentUser = authService.getCurrentUser();
         Post post = postMapper.map(postRequest, subreddit, currentUser);
-        postRepository.save(post);
+        post = postRepository.save(post);
+        PostResponse postResponse = postMapper.mapToDto(post);
+        return postResponse;
     }
 
     @Transactional(readOnly = true)
